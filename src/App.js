@@ -4,7 +4,7 @@ import { CssBaseline } from '@material-ui/core';
 import Header from './components/Header';
 import PlaceToVisit from './components/PlaceToVisit';
 import Pizza from './components/Pizza';
-
+import Checkout from './components/Checkout';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +39,14 @@ export default function App() {
         </h1>
       </div>
       <Pizza />
+      <div className={classes.title} id="place-to-visit">
+        <p>
+          <h1>
+            Finaliser votre commande !
+          </h1>
+        </p>
+      </div>
+      <Checkout/>
     </div>
   );
 }
