@@ -13,7 +13,7 @@ import CardActions from '@material-ui/core/CardActions';
 
 import axios from 'axios';
 
-import ImageTest from '../assets/Andalouse.png';
+import swal from 'sweetalert';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +40,21 @@ const useStyles = makeStyles((theme) => ({
 
     return data;
 }
+
+export const cart = []
+
+export let total = 0;
+
+const addToCart = (pizza) => {
+  cart.push({"id":pizza._id,"nom":pizza.nom,"desc":pizza.desc,"prix":pizza.prix})
+  total = total + pizza.prix;
+  console.log("id "+pizza._id," nom "+pizza.nom," desc "+pizza.desc," prix "+pizza.prix);
+  console.log(cart);
+  swal("La pizza a été ajouté a votre panier !", pizza.nom, "success");
+}
+
+
+
 
 //fonction qui permet de mettre la premiere lettre d'une string en majuscule
 function Capitalize(string) {
@@ -86,11 +101,11 @@ function Capitalize(string) {
                 </CardContent>
                 </CardActionArea>
                 <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={() => addToCart(value)}>
                     Commander
                 </Button>
                 <Button size="small" color="primary" disabled>
-                    {value.prix}
+                    {value.prix+ ' euros'}
                 </Button>
                 </CardActions>
             </Card>
