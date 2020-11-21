@@ -67,27 +67,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-
-function getStepContent(step,tabVal) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
 
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [values, setValues] = React.useState({lastName: '', firstName: '',address:'',city:'',region:'',zip:'',country:'',cardNumber:'',cardName:'',cardExp:'',cardCcv:''});
 
+
+  function handleChange(newValue) {
+    setValues({...values, ...newValue});
+  }
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -96,6 +87,19 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AddressForm values={values} onChange={handleChange} />;
+      case 1:
+        return <PaymentForm values={values} onChange={handleChange} />;
+      case 2:
+        return <Review values={values} onChange={handleChange} />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
 
   return (
     <React.Fragment>

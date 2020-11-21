@@ -7,11 +7,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 
 
+export default function PaymentForm(props) {
 
-export const paymentInfos = [];
+  //Send input value to parent state
+  const handleChange = name => event => {
+    props.onChange({
+      [name]: event.target.value
+    });
+  };
 
-
-export default function PaymentForm() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -19,7 +23,7 @@ export default function PaymentForm() {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <TextField required id="cardName" label="Name on card" fullWidth autoComplete="cc-name" />
+          <TextField required id="cardName" value={props.values.cardName} label="Name on card" fullWidth autoComplete="cc-name" value={props.values.cardName} onChange={handleChange('cardName')} />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
@@ -27,11 +31,13 @@ export default function PaymentForm() {
             id="cardNumber"
             label="Card number"
             fullWidth
+            value={props.values.cardNumber}
+            onChange={handleChange('cardNumber')}
             autoComplete="cc-number"
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="expDate" label="Expiry date" fullWidth autoComplete="cc-exp" />
+          <TextField required id="expDate" label="Expiry date" fullWidth autoComplete="cc-exp" value={props.values.cardExp} onChange={handleChange('cardExp')} />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
@@ -40,6 +46,8 @@ export default function PaymentForm() {
             label="CVV"
             helperText="Last three digits on signature strip"
             fullWidth
+            value={props.values.cardCcv}
+            onChange={handleChange('cardCcv')}
             autoComplete="cc-csc"
           />
         </Grid>

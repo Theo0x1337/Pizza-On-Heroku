@@ -6,7 +6,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 
-export default function AddressForm() {
+export default function AddressForm(props) {
+
+
+  //Send input value to parent state
+  const handleChange = name => event => {
+    props.onChange({
+      [name]: event.target.value
+    });
+  };
 
   return (
     <React.Fragment>
@@ -22,6 +30,8 @@ export default function AddressForm() {
             label="First name"
             fullWidth
             autoComplete="given-name"
+            value={props.values.firstName}
+            onChange={handleChange('firstName')}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -32,6 +42,8 @@ export default function AddressForm() {
             label="Last name"
             fullWidth
             autoComplete="family-name"
+            value={props.values.lastName}
+            onChange={handleChange('lastName')}
           />
         </Grid>
         <Grid item xs={12}>
@@ -42,20 +54,13 @@ export default function AddressForm() {
             label="Address line 1"
             fullWidth
             autoComplete="shipping address-line1"
+            value={props.values.address}
+            onChange={handleChange('address')}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="city"
-            name="city"
-            label="City"
-            fullWidth
-            autoComplete="shipping address-level2"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+          <TextField id="state" name="state" label="State/Province/Region" fullWidth value={props.values.region}
+            onChange={handleChange('region')} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -65,6 +70,8 @@ export default function AddressForm() {
             label="Zip / Postal code"
             fullWidth
             autoComplete="shipping postal-code"
+            value={props.values.zip}
+            onChange={handleChange('zip')}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -75,6 +82,8 @@ export default function AddressForm() {
             label="Country"
             fullWidth
             autoComplete="shipping country"
+            value={props.values.country}
+            onChange={handleChange('country')}
           />
         </Grid>
         <Grid item xs={12}>
